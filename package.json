@@ -8,7 +8,10 @@
     "url": ""
   },
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "3.2.1",
+    "socket.io": "0.9.14"
+  },
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
