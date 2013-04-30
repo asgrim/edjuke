@@ -1,0 +1,17 @@
+{
+  "author": "James Titcumb <james@asgrim.com> (http://www.jamestitcumb.com/)",
+  "name": "edjuke",
+  "description": "Ed Jukebox",
+  "version": "0.0.0",
+  "homepage": "http://www.github.com/asgrim/edjuke",
+  "repository": {
+    "url": ""
+  },
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
