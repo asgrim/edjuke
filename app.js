@@ -72,7 +72,9 @@ function getCurrentPlaying() {
           artist: matches[1],
           track: matches[2],
           curtime: matches[3],
-          tracktime: matches[4]
+          tracktime: matches[4],
+          users: getUserCount(),
+          votes: getCurrentTrackVotedCount()
         };
         io.sockets.emit('nowplaying', np);
 
