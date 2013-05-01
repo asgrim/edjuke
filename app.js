@@ -111,7 +111,7 @@ io.sockets.on('connection', function (socket) {
   sockets[socket.id].currentTrackVoted = false;
 
   socket.on('disconnect', function(data) {
-    sockets.splice(socket.id, 1);
+    sockets[socket.id] = null;
   });
 
   socket.on('votenext', function(data) {
