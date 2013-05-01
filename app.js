@@ -107,10 +107,12 @@ function voteNext(socket) {
 }
 
 io.sockets.on('connection', function (socket) {
+  console.log('hello to ' + socket.id);
   sockets[socket.id] = socket;
   sockets[socket.id].currentTrackVoted = false;
 
   socket.on('disconnect', function(data) {
+    console.log('bye to ' + socket.id);
     sockets[socket.id] = null;
   });
 
