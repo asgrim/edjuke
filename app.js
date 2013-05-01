@@ -6,6 +6,9 @@ var exec = require('child_process').exec;
 
 var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
 
+var sockets = {};
+var currentSong = '';
+
 server.listen(80);
 
 app.get('/', function (req, res) {
@@ -24,7 +27,38 @@ function runXmmsCommand(command, callback)
     };
   }
 
+  console.log('exec: ' + xmms2cmd + ' ' + command + '\'');
   exec(xmms2cmd + ' ' + command + '\'', callback);
+}
+
+function trackChangedEvent() {
+  console.log('track changed');
+  for (var key in sockets) {
+    if (sockets[key]) {
+      console.log('reset vote for ' + key);
+      sockets[key].currentTrackVoted = false;
+    }
+  }
+}
+
+function getCurrentTrackVotedCount() {
+  var count = 0;
+  for (var key in sockets) {
+    if (sockets[key]) {
+      if (sockets[key].currentTrackVoted) count++;
+    }
+  }
+  return count;
+}
+
+function getUserCount() {
+  var count = 0;
+  for (var key in sockets) {
+    if (sockets[key]) {
+      count++;
+    }
+  }
+  return count;
 }
 
 function getCurrentPlaying() {
@@ -40,6 +74,12 @@ function getCurrentPlaying() {
           tracktime: matches[4]
         };
         io.sockets.emit('nowplaying', np);
+
+        var oldSong = currentSong;
+        currentSong = matches[1] + '/' + matches[2];
+        if (oldSong != currentSong) {
+          trackChangedEvent();
+        }
       }
       setTimeout(getCurrentPlaying, 1000);
   });
@@ -49,9 +89,32 @@ function next() {
   runXmmsCommand('next');
 }
 
-io.sockets.on('connection', function (socket) {
-  socket.on('votenext', function(data) {
+function voteNext(socket) {
+  socket.currentTrackVoted = true;
+  var userCount = getUserCount();
+  var voteCount = getCurrentTrackVotedCount();
+
+  console.log('socket ' + socket.id + ' voted next');
+  console.log('user count = ' + userCount + ', vote count = ' + voteCount);
+
+  if (voteCount >= (userCount / 2)) {
+    console.log('nexting track, majority of votes');
     next();
+  } else {
+    console.log('not nexting yet');
+  }
+}
+
+io.sockets.on('connection', function (socket) {
+  sockets[socket.id] = socket;
+  sockets[socket.id].currentTrackVoted = false;
+
+  socket.on('disconnect', function(data) {
+    sockets.splice(socket.id, 1);
+  });
+
+  socket.on('votenext', function(data) {
+    voteNext(socket);
   });
 });
 
