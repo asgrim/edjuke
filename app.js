@@ -1,6 +1,7 @@
 var app = require('express')()
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
+io.set('log level', 1);
 
 var exec = require('child_process').exec;
 
@@ -27,7 +28,7 @@ function runXmmsCommand(command, callback)
     };
   }
 
-  console.log('exec: ' + xmms2cmd + ' ' + command + '\'');
+  //console.log('exec: ' + xmms2cmd + ' ' + command + '\'');
   exec(xmms2cmd + ' ' + command + '\'', callback);
 }
 
