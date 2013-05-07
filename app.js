@@ -109,7 +109,7 @@ function voteNext(socket) {
 }
 
 io.sockets.on('connection', function (socket) {
-  console.log('hello to ' + socket.id);
+  console.log('hello to ' + socket.id + ' [' + socket.handshake.address.address + ']');
   sockets[socket.id] = socket;
   sockets[socket.id].currentTrackVoted = false;
 
