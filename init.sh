@@ -1,8 +1,10 @@
-#!/bin/bash
+#!/bin/bash -x
+
+cd "$(dirname "$0")"
 
 mount /media/pimusic
-xmms2 playlist clear
-xmms2 add /media/pimusic
-xmms2 playlist shuffle
+
+./rescan.sh
+
 xmms2 play
 
