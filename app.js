@@ -68,6 +68,12 @@ function getCurrentPlaying() {
         console.log('exec error: ' + error);
       } else {
         var matches = stdout.match(/Playing: (.*) - (.*): (\d{0,3}:\d{2}) of (\d{0,3}:\d{2})/);
+
+        if (matches == null)
+        {
+          matches = ['','-= Stopped =-','','-','-'];
+        }
+
         var np = {
           artist: matches[1],
           track: matches[2],
