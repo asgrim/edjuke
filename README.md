@@ -7,5 +7,4 @@ Crontabs:
 
 ```
 0       7       *       *       1,2,3,4,5       /home/pi/edjuke/rescan.sh
-0       13      *       *       1,2,3,4,5       /home/pi/edjuke/rescan.sh
 ```
