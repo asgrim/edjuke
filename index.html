@@ -14,7 +14,9 @@
 		<p id="npArtist">Loading...</p>
 		<p id="npTrack"></p>
 		
-		<p id="npTimeDisplay"><span id="npCurTime">0:00</span> / <span id="npTime">0:00</span></p>
+		<p id="npTimeDisplay"><span id="npCurTime">-</span> / <span id="npTime">-</span></p>
+
+		<p id="usersConnected"></p>
 	</div>
 	
 	<div id="voteDisplay"></div>
@@ -46,8 +48,23 @@
 			document.getElementById('npTrack').innerHTML = data.track;
 			document.getElementById('npCurTime').innerHTML = data.curtime;
 			document.getElementById('npTime').innerHTML = data.tracktime;
-			
+
 			var votesRequired = Math.ceil(data.users / 2);
+
+			var connected = '';
+			if (data.users == 0) {
+				connected = 'There is no-one connected... wtf?';
+			} else if (data.users == 1) {
+				connected = 'You are the only one connected.';
+			} else {
+				connected = 'There are ' + data.users + ' people connected. ';
+				if (votesRequired == 1) {
+					connected += 'One vote needed to skip tracks.';
+				} else {
+					connected += votesRequired + ' votes needed to skip tracks.';
+				}
+			}
+			document.getElementById('usersConnected').innerHTML = connected;
 			
 			var voteDisplay = document.getElementById('voteDisplay');
 			

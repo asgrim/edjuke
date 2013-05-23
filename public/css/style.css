@@ -13,6 +13,7 @@ hr {
 }
 
 #header img {
+	padding-top: 10px;
 	display: block;
 	width: 252px;
 	height: 63px;
@@ -35,6 +36,13 @@ hr {
 
 #npTimeDisplay {
 	font-size: 14px;
+	color: #606060;
+	font-weight: bold;
+	text-align: center;
+}
+
+#usersConnected {
+	font-size: 8px;
 	color: #606060;
 	font-weight: bold;
 	text-align: center;
