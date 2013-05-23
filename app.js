@@ -1,16 +1,18 @@
-var app = require('express')()
-  , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
+var app = require('express')();
+var server = require('http').createServer(app)
+var io = require('socket.io').listen(server);
 io.set('log level', 1);
-
 var exec = require('child_process').exec;
 
+// Options
 var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
+var serverPort = 80;
 
+// Not options
 var sockets = {};
 var currentSong = '';
 
-server.listen(80);
+server.listen(serverPort);
 
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
