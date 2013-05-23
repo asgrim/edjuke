@@ -1,42 +1,98 @@
 <html>
 <head>
-<title>Ed/Juke</title>
+	<title>Ed Jukebox</title>
+	
+	<link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
+	<div id="header">
+		<img src="/images/ed-jukebox-logo.png" width="252" height="63" alt="Ed Jukebox"/>
+		<hr />
+	</div>
+	
+	<div id="nowplaying">
+		<p id="npArtist">Loading...</p>
+		<p id="npTrack"></p>
+		
+		<p id="npTimeDisplay"><span id="npCurTime">0:00</span> / <span id="npTime">0:00</span></p>
+	</div>
+	
+	<div id="voteDisplay"></div>
 
-<h1>Ed/Juke</h1>
-<p>There are <span id="connectedUsers">0</span> users connected.</p>
-
-<h2>Now Playing:</h2>
-<h3><span id="npArtist">artist</span></h3>
-<h3><span id="npTrack">track</span></h3>
-
-<p><span id="npCurTime">0:00</span> / <span id="npTime">0:00</span></p> 
-
-<p>Votes: <span id="npVotes">0</span> (<span id="npVotesNeeded">0</span> needed)</p>
-
-<h2>Commands</h2>
-<a href="javascript:;" onclick="voteNext();">next</a>
+	<div id="voteButton">
+		<a href="javascript:;" onclick="voteNext();" id="voteNext">Next &raquo;</a>
+	</div>
 
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  var socket = io.connect(window.location.href);
-
-  socket.on('nowplaying', function (data) {
-    document.getElementById('npArtist').innerHTML = data.artist;
-    document.getElementById('npTrack').innerHTML = data.track;
-    document.getElementById('npCurTime').innerHTML = data.curtime;
-    document.getElementById('npTime').innerHTML = data.tracktime;
-    document.getElementById('npVotes').innerHTML = data.votes;
-    document.getElementById('npVotesNeeded').innerHTML = Math.ceil(data.users / 2);
-    document.getElementById('connectedUsers').innerHTML = data.users;
-  });
-
-  function voteNext()
-  {
-    socket.emit('votenext');
-  }
+	var currentVotesRequired = 0;
+	
+	function isInt(n) {
+		return typeof n === 'number' && n % 1 == 0;
+	}
+	
+	if (window.location.search.substring(0,6) != '?user=')
+	{
+		alert('Please provide a user parameter (e.g. jr/steve/jon/james)');
+	}
+	else
+	{
+		var socket = io.connect(window.location.href);
+	
+		socket.on('nowplaying', function (data) {
+			//console.log(data);
+			document.getElementById('npArtist').innerHTML = data.artist;
+			document.getElementById('npTrack').innerHTML = data.track;
+			document.getElementById('npCurTime').innerHTML = data.curtime;
+			document.getElementById('npTime').innerHTML = data.tracktime;
+			
+			var votesRequired = Math.ceil(data.users / 2);
+			
+			var voteDisplay = document.getElementById('voteDisplay');
+			
+			if (currentVotesRequired > votesRequired)
+			{
+				while(currentVotesRequired > votesRequired)
+				{
+					voteDisplay.removeChild(voteDisplay.lastChild);
+					
+					currentVotesRequired--;
+				}
+			}
+			
+			if (currentVotesRequired < votesRequired)
+			{
+				while(currentVotesRequired < votesRequired)
+				{
+					var img = document.createElement('IMG');
+					img.src = '/images/no-vote.png';
+					voteDisplay.appendChild(img);
+					
+					currentVotesRequired++;
+				}
+			}
+			
+			for (var i = 0; i < currentVotesRequired; i++)
+			{
+				if (data.voteusers[i])
+				{
+					voteDisplay.childNodes[i].src = '/images/user-' + data.voteusers[i] + '.png'; 
+				}
+				else
+				{
+					voteDisplay.childNodes[i].src = '/images/no-vote.png'; 
+				}
+			}
+			
+			//document.getElementById('connectedUsers').innerHTML = data.users;
+		});
+	
+		function voteNext()
+		{
+			socket.emit('votenext');
+		}
+	}
 </script>
 </body>
 </html>

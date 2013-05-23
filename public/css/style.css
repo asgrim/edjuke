@@ -1,0 +1,75 @@
+
+body {
+	background-color: #ededed;
+	font-family: Verdana, sans-serif;
+}
+
+hr {
+	color: #26ace2;
+	background-color: #26ace2;
+	height: 2px;
+	border: 0px;
+	width: 252px;
+}
+
+#header img {
+	display: block;
+	width: 252px;
+	height: 63px;
+	margin: 0 auto;
+}
+
+#npArtist {
+	font-size: 20px;
+	color: #606060;
+	font-weight: bold;
+	text-align: center;
+}
+
+#npTrack {
+	font-size: 18px;
+	color: #606060;
+	font-weight: normal;
+	text-align: center;
+}
+
+#npTimeDisplay {
+	font-size: 14px;
+	color: #606060;
+	font-weight: bold;
+	text-align: center;
+}
+
+#voteNext {
+	font-size: 30px;
+	color: #ffffff;
+	font-weight: bold;
+	text-align: center;
+	width: 200px;
+	height: 60px;
+	line-height: 60px;
+	margin: 0 auto;
+	display: block;
+	background-color: #6fbe44;
+	text-decoration: none;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+#voteNext:hover {
+	background-color: #7ac750;
+	color: #f5f5f5;
+}
+
+#voteDisplay {
+	margin: 20px 0;
+	text-align: center;
+}
+#voteDisplay img {
+	width: 52px;
+	height: 52px;
+	padding-left: 10px;
+}
+#voteDisplay img:first-child {
+	padding-left: 0;
+}
