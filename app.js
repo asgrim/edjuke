@@ -39,11 +39,12 @@ function runXmmsCommand(command, callback)
 	exec(xmms2cmd + ' ' + command + '\'', callback);
 }
 
-function trackChangedEvent() {
-	console.log('track changed');
+function trackChangedEvent(newSong) {
+	console.log('track changed: ' + newSong);
+
 	for (var key in sockets) {
 		if (sockets[key]) {
-			console.log('reset vote for ' + key);
+			console.log('reset vote for ' + sockets[key].user);
 			sockets[key].currentTrackVoted = false;
 		}
 	}
@@ -107,7 +108,7 @@ function getCurrentPlaying() {
 				var oldSong = currentSong;
 				currentSong = matches[1] + '/' + matches[2];
 				if (oldSong != currentSong) {
-					trackChangedEvent();
+					trackChangedEvent(currentSong);
 				}
 			}
 			setTimeout(getCurrentPlaying, 1000);
@@ -147,13 +148,13 @@ io.set('authorization', function (handshakeData, callback) {
 
 io.sockets.on('connection', function (socket) {
 	var user = socket.handshake.query.user;
-	console.log('hello to ' + socket.id + ' [' + socket.handshake.address.address + '] [' + user + ']');
+	console.log('hello to ' + user + ' [' + socket.handshake.address.address + ']');
 	sockets[socket.id] = socket;
 	sockets[socket.id].currentTrackVoted = false;
 	sockets[socket.id].user = user;
 
 	socket.on('disconnect', function(data) {
-		console.log('bye to ' + socket.id + ' [' + socket.user + ']');
+		console.log('bye to ' + socket.user);
 		sockets[socket.id] = null;
 	});
 
