@@ -1,83 +1,83 @@
-
 body {
-	background-color: #ededed;
-	font-family: Verdana, sans-serif;
-}
+	font-family:
+	Verdana, sans-serif;
+	background-color: rgb(237, 237, 237);
+	}
 
 hr {
-	color: #26ace2;
-	background-color: #26ace2;
+	border: 0px currentColor;
 	height: 2px;
-	border: 0px;
-	width: 252px;
-}
+	color: rgb(38, 172, 226);
+	background-color: rgb(38, 172, 226);
+	}
 
 #header img {
+	margin: 0px auto;
+	max-width: 90%;
 	padding-top: 10px;
 	display: block;
-	width: 252px;
-	height: 63px;
-	margin: 0 auto;
-}
+	}
 
 #npArtist {
-	font-size: 20px;
-	color: #606060;
-	font-weight: bold;
 	text-align: center;
-}
+	color: rgb(96, 96, 96);
+	font-size: 18px;
+	font-weight: bold;
+	}
 
 #npTrack {
-	font-size: 18px;
-	color: #606060;
-	font-weight: normal;
 	text-align: center;
-}
+	color: rgb(96, 96, 96);
+	font-size: 18px;
+	font-weight: normal;
+	}
 
 #npTimeDisplay {
-	font-size: 14px;
-	color: #606060;
-	font-weight: bold;
 	text-align: center;
-}
+	color: rgb(96, 96, 96);
+	font-size: 14px;
+	font-weight: bold;
+	}
 
 #usersConnected {
-	font-size: 8px;
-	color: #606060;
-	font-weight: bold;
 	text-align: center;
-}
+	color: rgb(96, 96, 96);
+	font-size: 8px;
+	font-weight: bold;
+	}
 
 #voteNext {
-	font-size: 30px;
-	color: #ffffff;
-	font-weight: bold;
-	text-align: center;
-	width: 200px;
+	margin: 0px auto;
+	border-radius: 5px;
+	width: 70%;
 	height: 60px;
+	text-align: center;
+	color: rgb(255, 255, 255);
 	line-height: 60px;
-	margin: 0 auto;
-	display: block;
-	background-color: #6fbe44;
+	font-size: 30px;
 	text-decoration: none;
+	display: block;
+	background-color: rgb(111, 190, 68);
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
+	}
+
 #voteNext:hover {
-	background-color: #7ac750;
-	color: #f5f5f5;
-}
+	color: rgb(245, 245, 245);
+	background-color: rgb(122, 199, 80);
+	}
 
 #voteDisplay {
-	margin: 20px 0;
+	margin: 20px 0px;
 	text-align: center;
-}
+	}
+
 #voteDisplay img {
 	width: 52px;
 	height: 52px;
 	padding-left: 10px;
-}
+	}
+
 #voteDisplay img:first-child {
-	padding-left: 0;
-}
+	padding-left: 0px;
+	}
