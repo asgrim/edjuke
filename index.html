@@ -24,6 +24,10 @@
 	<div id="voteButton">
 		<a href="javascript:;" onclick="voteNext();" id="voteNext">Next &raquo;</a>
 	</div>
+	
+	<div id="emergencyJarOfHearts">
+		<a href="javascript:;" onclick="emergencyJarOfHearts();">Emergency <em>"Jar of Hearts"</em> &raquo;</a>
+	</div>
 
 
 <script src="/socket.io/socket.io.js"></script>
@@ -108,6 +112,11 @@
 		function voteNext()
 		{
 			socket.emit('votenext');
+		}
+		
+		function emergencyJarOfHearts()
+		{
+			socket.emit('emergencyJarOfHearts');
 		}
 	}
 </script>

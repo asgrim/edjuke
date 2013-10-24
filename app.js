@@ -6,8 +6,9 @@ io.set('log level', 1);
 var exec = require('child_process').exec;
 
 // Options
-var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
-var serverPort = 80;
+//var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
+var xmms2cmd = 'echo \'';
+var serverPort = 8080;
 
 // Not options
 var sockets = {};
@@ -135,6 +136,20 @@ function voteNext(socket) {
 	}
 }
 
+function emergencyJarOfHearts(socket) {
+	console.log('user ' + socket.user + ' requested Jar of Hearts in emergency situation');
+
+	var callback = function(error, stdout, stderr) {
+		//console.log('stdout: ' + stdout);
+		//console.log('stderr: ' + stderr);
+		if (error !== null) {
+			console.log('exec error: ' + error);
+		}
+	};
+	
+	exec('sudo su pi -c \'./emergency-jar-of-hearts.sh\'', callback);
+}
+
 io.set('authorization', function (handshakeData, callback) {
 	if (typeof(handshakeData.query.user) == 'undefined' || handshakeData.query.user == '')
 	{
@@ -160,6 +175,10 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('votenext', function(data) {
 		voteNext(socket);
+	});
+	
+	socket.on('emergencyJarOfHearts', function(data) {
+		emergencyJarOfHearts(socket);
 	});
 });
 

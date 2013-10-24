@@ -81,3 +81,9 @@ hr {
 #voteDisplay img:first-child {
 	padding-left: 0px;
 	}
+
+#emergencyJarOfHearts {
+	margin-top: 10px;
+	text-align: center;
+	font-size: 10px;
+}
