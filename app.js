@@ -6,9 +6,8 @@ io.set('log level', 1);
 var exec = require('child_process').exec;
 
 // Options
-//var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
-var xmms2cmd = 'echo \'';
-var serverPort = 8080;
+var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
+var serverPort = 80;
 
 // Not options
 var sockets = {};
