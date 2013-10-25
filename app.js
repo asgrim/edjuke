@@ -12,6 +12,7 @@ var serverPort = 80;
 // Not options
 var sockets = {};
 var currentSong = '';
+var johPlayer = '';
 
 server.listen(serverPort);
 
@@ -101,7 +102,8 @@ function getCurrentPlaying() {
 					tracktime: matches[4],
 					users: getUserCount(),
 					votes: getCurrentTrackVotedCount(),
-					voteusers: getCurrentTrackVotedUsers()
+					voteusers: getCurrentTrackVotedUsers(),
+					jarOfHeartsPlayer: johPlayer
 				};
 				io.sockets.emit('nowplaying', np);
 
@@ -137,6 +139,8 @@ function voteNext(socket) {
 
 function emergencyJarOfHearts(socket) {
 	console.log('user ' + socket.user + ' requested Jar of Hearts in emergency situation');
+
+	johPlayer = socket.user;
 
 	var callback = function(error, stdout, stderr) {
 		console.log('stdout: ' + stdout);

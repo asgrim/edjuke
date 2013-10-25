@@ -26,7 +26,8 @@
 	</div>
 	
 	<div id="emergencyJarOfHearts">
-		<a href="javascript:;" onclick="emergencyJarOfHearts();">Emergency <em>"Jar of Hearts"</em> &raquo;</a>
+		<a href="javascript:;" onclick="emergencyJarOfHearts();" id="emergencyJarOfHeartsLink">Emergency <em>"Jar of Hearts"</em> &raquo;</a>
+		<span id="emergencyJarOfHeartsPlaying" class="hidden"></span>
 	</div>
 
 
@@ -47,11 +48,14 @@
 		var socket = io.connect(window.location.href);
 	
 		socket.on('nowplaying', function (data) {
+			johPlayer = data.jarOfHeartsPlayer.charAt(0).toUpperCase() + data.jarOfHeartsPlayer.slice(1);
+
 			//console.log(data);
 			document.getElementById('npArtist').innerHTML = data.artist;
 			document.getElementById('npTrack').innerHTML = data.track;
 			document.getElementById('npCurTime').innerHTML = data.curtime;
 			document.getElementById('npTime').innerHTML = data.tracktime;
+			document.getElementById('emergencyJarOfHeartsPlaying').innerHTML = 'Jar of Hearts played by ' + johPlayer;
 
 			var votesRequired = Math.ceil(data.users / 2);
 
@@ -108,11 +112,13 @@
 			
 			if (data.track == 'Jar of Hearts')
 			{
-				document.getElementById('emergencyJarOfHearts').className = 'hidden';
+				document.getElementById('emergencyJarOfHeartsLink').className = 'hidden';
+				document.getElementById('emergencyJarOfHeartsPlaying').className = '';
 			}
 			else
 			{
-				document.getElementById('emergencyJarOfHearts').className = '';
+				document.getElementById('emergencyJarOfHeartsLink').className = '';
+				document.getElementById('emergencyJarOfHeartsPlaying').className = 'hidden';
 			}
 
 			//document.getElementById('connectedUsers').innerHTML = data.users;
