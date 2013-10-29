@@ -5,6 +5,7 @@ echo "Jar of Hearts id: $JAR_ID"
 
 if [ "$JAR_ID" -gt "0" ]
 then
+  xmms2 prev
   xmms2 move -n $JAR_ID
   xmms2 next
 fi
