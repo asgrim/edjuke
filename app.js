@@ -5,7 +5,7 @@ var io = require('socket.io').listen(server);
 io.set('log level', 1);
 var exec = require('child_process').exec;
 
-var bannedUsers = [];
+var allowedUsers = ['jr','scott','james','jon','newjames','steve'];
 
 // Options
 var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
@@ -96,9 +96,9 @@ function userIsConnected(user) {
 	return false;
 }
 
-function userIsBanned(user) {
-	for (var i = 0; i < bannedUsers.length; i++) {
-		if (user == bannedUsers[i]) return true;
+function userIsAllowed(user) {
+	for (var i = 0; i < allowedUsers.length; i++) {
+		if (user == allowedUsers[i]) return true;
 	}
 	return false;
 }
@@ -195,7 +195,7 @@ io.sockets.on('connection', function (socket) {
 		return;
 	}
 
-	if (userIsBanned(user))
+	if (!userIsAllowed(user))
 	{
 		console.log('banned user DENIED from ' + user + ' [' + socket.handshake.address.address + ']');
 		socket.emit('banned');
