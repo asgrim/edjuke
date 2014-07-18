@@ -5,6 +5,8 @@ var io = require('socket.io').listen(server);
 io.set('log level', 1);
 var exec = require('child_process').exec;
 
+var bannedUsers = [];
+
 // Options
 var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
 var serverPort = 80;
@@ -81,6 +83,24 @@ function getUserCount() {
 		}
 	}
 	return count;
+}
+
+function userIsConnected(user) {
+	for (var key in sockets) {
+		if (sockets[key] != null) {
+			if (sockets[key].user == user) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+function userIsBanned(user) {
+	for (var i = 0; i < bannedUsers.length; i++) {
+		if (user == bannedUsers[i]) return true;
+	}
+	return false;
 }
 
 function getCurrentPlaying() {
@@ -166,6 +186,23 @@ io.set('authorization', function (handshakeData, callback) {
 
 io.sockets.on('connection', function (socket) {
 	var user = socket.handshake.query.user;
+
+	if (userIsConnected(user))
+	{
+		console.log('dupe connection DENIED from ' + user + ' [' + socket.handshake.address.address + ']');
+		socket.emit('dupe');
+		socket.disconnect();
+		return;
+	}
+
+	if (userIsBanned(user))
+	{
+		console.log('banned user DENIED from ' + user + ' [' + socket.handshake.address.address + ']');
+		socket.emit('banned');
+		socket.disconnect();
+		return;
+	}
+
 	console.log('hello to ' + user + ' [' + socket.handshake.address.address + ']');
 	sockets[socket.id] = socket;
 	sockets[socket.id].currentTrackVoted = false;

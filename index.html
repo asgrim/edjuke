@@ -46,7 +46,17 @@
 	else
 	{
 		var socket = io.connect(window.location.href);
-	
+
+		socket.on('dupe', function (data) {
+			alert('You were caught cheating.');
+			socket.disconnect();
+		});
+
+		socket.on('banned', function (data) {
+			alert('You have been banned.');
+			socket.disconnect();
+		});
+
 		socket.on('nowplaying', function (data) {
 			johPlayer = data.jarOfHeartsPlayer.charAt(0).toUpperCase() + data.jarOfHeartsPlayer.slice(1);
 
