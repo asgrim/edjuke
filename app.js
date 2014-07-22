@@ -10,6 +10,11 @@ var allowedUsers = ['jr','scott','james','jon','newjames','steve'];
 // Options
 var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
 var serverPort = 80;
+var buzzerCmd = '/usr/bin/aplay buzzer.wav'
+
+// To test when not on a pi, uncomment this:
+//var xmms2cmd = 'echo \'';
+//var serverPort = 8081;
 
 // Not options
 var sockets = {};
@@ -40,6 +45,11 @@ function runXmmsCommand(command, callback)
 
 	//console.log('exec: ' + xmms2cmd + ' ' + command + '\'');
 	exec(xmms2cmd + ' ' + command + '\'', callback);
+}
+
+function buzz()
+{
+	exec(buzzerCmd);
 }
 
 function trackChangedEvent(newSong) {
@@ -142,18 +152,27 @@ function next() {
 }
 
 function voteNext(socket) {
-	socket.currentTrackVoted = true;
-	var userCount = getUserCount();
-	var voteCount = getCurrentTrackVotedCount();
+	if (socket.currentTrackVoted != true)
+	{
+		socket.currentTrackVoted = true;
+		var userCount = getUserCount();
+		var voteCount = getCurrentTrackVotedCount();
 
-	console.log('user ' + socket.user + ' voted next');
-	console.log('user count = ' + userCount + ', vote count = ' + voteCount);
+		console.log('user ' + socket.user + ' voted next');
+		console.log('user count = ' + userCount + ', vote count = ' + voteCount);
 
-	if (voteCount >= (userCount / 2)) {
-		console.log('nexting track, majority of votes');
-		next();
-	} else {
-		console.log('not nexting yet');
+		if (voteCount >= (userCount / 2)) {
+			console.log('nexting track, majority of votes');
+			next();
+		} else {
+			console.log('not nexting yet');
+		}
+
+		buzz();
+	}
+	else
+	{
+		console.log('user ' + socket.user + ' voted next (again, so ignored)');
 	}
 }
 
