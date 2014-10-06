@@ -5,7 +5,7 @@ var io = require('socket.io').listen(server);
 io.set('log level', 1);
 var exec = require('child_process').exec;
 
-var allowedUsers = ['jr','scott','james','newjames','steve'];
+var allowedUsers = ['jr','scott','james','newjames','steve','kev'];
 
 // Options
 var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
