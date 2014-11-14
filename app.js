@@ -10,7 +10,7 @@ var allowedUsers = ['jr','scott','james','newjames','steve','kev'];
 // Options
 var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
 var serverPort = 80;
-var buzzerCmd = '/usr/bin/aplay ';
+var buzzerCmd = '/usr/bin/aplay buzzers/';
 
 var customBuzzerSounds = ['james','kev','scott','steve'];
 
