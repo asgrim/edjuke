@@ -12,7 +12,7 @@ var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
 var serverPort = 80;
 var buzzerCmd = '/usr/bin/aplay buzzers/';
 
-var customBuzzerSounds = ['james','kev','scott','steve'];
+var customBuzzerSounds = ['james','kev','scott','steve','price'];
 
 // To test when not on a pi, uncomment this:
 //var xmms2cmd = 'echo \'';
