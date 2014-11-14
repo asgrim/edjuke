@@ -10,7 +10,9 @@ var allowedUsers = ['jr','scott','james','newjames','steve','kev'];
 // Options
 var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
 var serverPort = 80;
-var buzzerCmd = '/usr/bin/aplay buzzer.wav'
+var buzzerCmd = '/usr/bin/aplay ';
+
+var customBuzzerSounds = ['james','kev','scott','steve'];
 
 // To test when not on a pi, uncomment this:
 //var xmms2cmd = 'echo \'';
@@ -47,9 +49,15 @@ function runXmmsCommand(command, callback)
 	exec(xmms2cmd + ' ' + command + '\'', callback);
 }
 
-function buzz()
+function buzz(whoDunnit)
 {
-	exec(buzzerCmd);
+	if (customBuzzerSounds.indexOf(whoDunnit) >= 0) {
+		var run = buzzerCmd + whoDunnit + '.wav';
+	} else {
+		var run = buzzerCmd + 'default.wav';
+	}
+
+	exec(run);
 }
 
 function trackChangedEvent(newSong) {
@@ -168,7 +176,7 @@ function voteNext(socket) {
 			console.log('not nexting yet');
 		}
 
-		buzz();
+		buzz(socket.user);
 	}
 	else
 	{
