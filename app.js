@@ -5,14 +5,14 @@ var io = require('socket.io').listen(server);
 io.set('log level', 1);
 var exec = require('child_process').exec;
 
-var allowedUsers = ['jr','scott','james','newjames','steve','kev'];
+var allowedUsers = ['jr','james','newjames','steve','kev'];
 
 // Options
 var xmms2cmd = 'sudo su pi -c \'/usr/bin/xmms2';
 var serverPort = 80;
 var buzzerCmd = '/usr/bin/aplay buzzers/';
 
-var customBuzzerSounds = ['james','kev','scott','steve','newjames'];
+var customBuzzerSounds = ['james','kev','steve','newjames'];
 
 // To test when not on a pi, uncomment this:
 //var xmms2cmd = 'echo \'';
