@@ -1,9 +1,9 @@
 {
-  "author": "James Titcumb <james@asgrim.com> (http://www.jamestitcumb.com/)",
+  "author": "James Titcumb <james.titcumb@protected.co.uk> (http://www.protected.co.uk/)",
   "name": "edjuke",
   "description": "Ed Jukebox",
   "version": "0.0.0",
-  "homepage": "http://www.github.com/asgrim/edjuke",
+  "homepage": "http://www.github.com/edgroup/edjuke",
   "repository": {
     "url": ""
   },
